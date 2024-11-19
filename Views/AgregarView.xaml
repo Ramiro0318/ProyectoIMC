@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="ProyectoIMC.Views.AgregarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoIMC.Views"
+             xmlns:viewmodels="clr-namespace:ProyectoIMC.Viewmodels"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800" Background="LightGray">
+
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="MinWidth" Value="150"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="MinWidth" Value="500"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <Label Content="Agregar registro" FontSize="40" FontWeight="Bold" DockPanel.Dock="Top" Background="#2494f4" HorizontalContentAlignment="Center"></Label>
+        <StackPanel Margin="5" HorizontalAlignment="Center">
+
+            <WrapPanel Margin="15,20,0,0">
+                <Label Content="Nombre" HorizontalAlignment="Center" Margin="5" MinWidth="150"></Label>
+                <TextBox Width="500" Margin="5" Text="{Binding Registro.Nombre}"></TextBox>
+            </WrapPanel>
+
+            <WrapPanel Margin="15,10,0,0">
+                <Label Content="Sexo" Margin="5"></Label>
+                <ComboBox Width="500" FontSize="26" Margin="5" SelectedValue="{Binding Registro.Sexo}" Name="cmbSexo" ></ComboBox>
+            </WrapPanel>
+
+            <WrapPanel Margin="15,10,0,0">
+                <Label Content="Estatura (m)" Margin="5"></Label>
+                <TextBox Width="500" Margin="5" Text="{Binding Registro.Estatura}"></TextBox>
+            </WrapPanel>
+
+
+            <WrapPanel Margin="15,10,0,0">
+                <Label Content="Peso (Kg)" Margin="5"></Label>
+                <TextBox Width="500" Margin="5" Text="{Binding Registro.Peso}"></TextBox>
+            </WrapPanel>
+
+
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Content="Registrar" Command="{Binding AgregarCommand}" FontSize="26"  Margin="20" Padding="5"></Button>
+                <Button Content="Cancelar"  Command="{Binding CancelarCommand}" FontSize="26" Margin="20" Padding="5"></Button>
+            </WrapPanel>
+            
+            <TextBlock Text="{Binding Error}" FontSize="15" Foreground="Red"></TextBlock>
+            
+        </StackPanel>
+    </DockPanel>
+</UserControl>

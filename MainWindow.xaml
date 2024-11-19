@@ -1,0 +1,52 @@
+﻿<Window x:Class="ProyectoIMC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoIMC" xmlns:views="clr-namespace:ProyectoIMC.Views"
+        xmlns:viewmodels="clr-namespace:ProyectoIMC.Viewmodels"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="450" Width="800" Background="{x:Null}" Icon="/Assets/man.png">
+    <Window.DataContext>
+        <viewmodels:RegistroViewModel></viewmodels:RegistroViewModel>
+    </Window.DataContext>
+
+    <Grid>
+        <views:VerView></views:VerView>
+        
+        <ContentControl>
+            <ContentControl.Style>
+
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+
+                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static viewmodels:Vistas.VerView}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <views:VerView></views:VerView>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static viewmodels:Vistas.AgregarView}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <views:AgregarView></views:AgregarView>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static viewmodels:Vistas.EliminarView}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                        <views:EliminarView></views:EliminarView>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</Window>

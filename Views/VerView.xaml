@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="ProyectoIMC.Views.VerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoIMC.Views"
+             xmlns:viewmodels="clr-namespace:ProyectoIMC.Viewmodels" d:DataContext="{d:DesignInstance Type=viewmodels:RegistroViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="LightGray">
+
+    <DockPanel>
+        <Label Content="Registro de IMC" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" DockPanel.Dock="Top"></Label>
+
+        <Grid DockPanel.Dock="Bottom" Margin="30,15,30,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding BajoPeso, StringFormat='Bajo peso: {0}'}" VerticalAlignment="Center" FontSize="20"  Margin="0,1"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding PesoNomral, StringFormat='Peso normal: {0}'}" VerticalAlignment="Center" FontSize="20" Margin="0,1"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Sobrepeso, StringFormat='Sobrepeso: {0}'}" VerticalAlignment="Center" FontSize="20" Margin="0,1"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Obesidad, StringFormat='Obesidad: {0}'}" VerticalAlignment="Center" FontSize="20" Margin="0,1"></TextBlock>
+
+            <!--<TextBlock Text="{Binding , StringFormat='Ratio H/M: {0}'}" VerticalAlignment="Center" FontSize="25" ></TextBlock>-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding AvgEstatura, StringFormat='Promedio estatura: {0} m'}" VerticalAlignment="Center" FontSize="20" Margin="0,2,0,0"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding AvgPeso, StringFormat='Promedio peso: {0} Kg'}" VerticalAlignment="Center" FontSize="20" Margin="0,2,0,0"></TextBlock>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*"></RowDefinition>
+                <RowDefinition Height="0.85*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Grid VerticalAlignment="Center"  Margin="50,0,50,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--<Button Content="Agregar"  Command="{Binding CambiarVistaCommand}" CommandParameter="{x:Static Viewmodel:Vistas.AgregarView}" FontSize="20" Margin="50,0,0,0"></Button>-->
+                <Button Content="Agregar"  Grid.Column="0" Command="{Binding IrAgregarCommand}" FontSize="20" Margin="20,0"></Button>
+                <Button Content="Eliminar" Grid.Column="1" Command="{Binding IrEliminarCommand}" CommandParameter="{Binding ElementName=DtgRegistros, Path=SelectedItem}" FontSize="20" Margin="20,0"></Button>
+                <Image ToolTip="{Binding Tooltip}" Grid.Column="2" Source="/Assets/info.png" Width="27" Stretch="Uniform" HorizontalAlignment="Left"  Margin="-5,0,0,0"></Image>
+
+                <DockPanel Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" ToolTip="{Binding Porcentaje}">
+                    <Image DockPanel.Dock="Right" Source="/Assets/man.png" Width="30" Stretch="Uniform" ></Image>
+                    <Image DockPanel.Dock="Left" Source="/Assets/woman.png" Width="30" Stretch="Uniform"></Image>
+                    <ProgressBar Value="{Binding Ratio}" Width="170" Foreground="#ed14a9" Background="#3452f6" BorderBrush="#3452f6"  ></ProgressBar>
+                </DockPanel>
+
+            </Grid>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False"  FontSize="25" Width="740" ItemsSource="{Binding Registros}" CanUserAddRows="False" Name="DtgRegistros" HorizontalContentAlignment="Stretch">
+                <DataGrid.Resources>
+
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="IsManipulationEnabled" Value="False"></Setter>
+                    </Style>
+
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="FontSize" Value="20"></Setter>
+                        <Setter Property="IsEditing" Value="False"></Setter>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Clasificacion}" Value="Obesidad">
+                                <Setter Property="Background" Value="#B2FF0000"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Clasificacion}" Value="Sobrepeso">
+                                <Setter Property="Background" Value="#B2FF9416"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Clasificacion}" Value="Peso normal">
+                                <Setter Property="Background" Value="#01cc70"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Clasificacion}" Value="Bajo peso">
+                                <Setter Property="Background" Value="#FF00A1FF"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Width="0.3*" Binding="{Binding Nombre}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sexo" Width="0.15*" Binding="{Binding Sexo}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Estatura" Width="0.15*" Binding="{Binding Estatura}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Peso" Width="0.1*" Binding="{Binding Peso}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="IMC" Width="0.1*" Binding="{Binding IMC}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Clasificacion" Width="0.2*" Binding="{Binding Clasificacion}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </DockPanel>
+
+
+</UserControl>
