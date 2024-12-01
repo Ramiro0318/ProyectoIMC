@@ -49,7 +49,7 @@ namespace ProyectoIMC.Viewmodels
 
         public RegistroViewModel()
         {
-            Actualizar(null);
+            Actualizar(null);   
 
             IrAgregarCommand = new RelayCommand(IrAgregar);
             AgregarCommand = new RelayCommand(Agregar);
